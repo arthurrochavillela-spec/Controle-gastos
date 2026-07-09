@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gastos">
+<meta name="theme-color" content="#14171C">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<title>Controle de Gastos</title>
+<style>
+  :root{
+    --bg:#14171C;
+    --surface:#1C2027;
+    --surface-2:#20242C;
+    --border:#2A2F38;
+    --text:#E8E6E1;
+    --text-dim:#8B8F98;
+    --ok:#4FA490;
+    --warn:#D9A441;
+    --over:#D9564F;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    --sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+  }
+  .app{max-width:760px;margin:0 auto;padding:calc(28px + env(safe-area-inset-top)) 20px calc(90px + env(safe-area-inset-bottom));}
+
+  .banner{background:#3a2a1a;border:1px solid var(--warn);color:var(--warn);font-size:12px;padding:10px 12px;border-radius:8px;margin-bottom:16px;line-height:1.4;}
+
+  /* header */
+  .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  .header h1{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);font-weight:600;margin:0;}
+  .month-nav{display:flex;align-items:center;gap:12px;}
+  .month-nav button{background:none;border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;}
+  .month-nav button:hover{background:var(--surface-2);}
+  .month-label{font-family:var(--mono);font-size:14px;min-width:130px;text-align:center;text-transform:capitalize;}
+
+  /* gauge */
+  .gauge-wrap{margin:20px 0 8px;}
+  .gauge{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--surface);border:1px solid var(--border);}
+  .gauge-seg{height:100%;}
+  .gauge-fixed{background:repeating-linear-gradient(45deg,#3a3f4a,#3a3f4a 4px,#33373f 4px,#33373f 8px);}
+  .totals{display:flex;justify-content:space-between;margin-top:10px;font-family:var(--mono);}
+  .totals .item{text-align:left;}
+  .totals .item .label{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:3px;}
+  .totals .item .value{font-size:19px;font-weight:600;}
+  .totals .remaining.neg{color:var(--over);}
+  .totals .remaining.pos{color:var(--ok);}
+
+  section{margin-top:32px;}
+  .section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .section-title h2{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);margin:0;font-weight:600;}
+  .link-btn{background:none;border:none;color:var(--text-dim);font-size:12px;cursor:pointer;text-decoration:underline;padding:0;}
+  .link-btn:hover{color:var(--text);}
+
+  /* category cards */
+  .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  @media(max-width:520px){.cat-grid{grid-template-columns:1fr;}}
+  .cat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;}
+  .cat-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .cat-name{font-size:14px;font-weight:600;}
+  .cat-nums{font-family:var(--mono);font-size:12px;color:var(--text-dim);}
+  .cat-bar{height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden;margin-bottom:4px;}
+  .cat-bar-fill{height:100%;transition:width .2s;}
+  .cat-remain{font-family:var(--mono);font-size:11px;color:var(--text-dim);}
+  .empty{color:var(--text-dim);font-size:13px;border:1px dashed var(--border);border-radius:10px;padding:18px;text-align:center;}
+
+  /* fixed list */
+  .fixed-list{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+  .fixed-row{display:flex;justify-content:space-between;padding:10px 14px;font-size:13px;border-bottom:1px solid var(--border);}
+  .fixed-row:last-child{border-bottom:none;}
+  .fixed-row .amt{font-family:var(--mono);color:var(--text-dim);}
+
+  /* form */
+  .form-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;}
+  .form-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .form-row select,.form-row input{
+    background:var(--surface-2);border:1px solid var(--border);color:var(--text);
+    border-radius:6px;padding:11px 10px;font-family:var(--sans);font-size:16px;
+  }
+  .form-row select{flex:1;min-width:120px;}
+  .form-row input[type=number]{width:110px;font-family:var(--mono);}
+  .form-row input[type=text]{flex:1;min-width:120px;}
+  .form-row input[type=date]{width:150px;font-family:var(--mono);}
+  .submit-btn{background:var(--ok);border:none;color:#0f1712;font-weight:600;padding:11px 16px;border-radius:6px;cursor:pointer;font-size:14px;min-height:44px;}
+  .submit-btn:hover{opacity:.9;}
+  .submit-btn:disabled{opacity:.4;cursor:not-allowed;}
+  .field-error{color:var(--over);font-size:12px;margin-top:6px;display:none;}
+  .field-error.show{display:block;}
+  @media(max-width:480px){
+    .form-row select,.form-row input[type=text]{flex-basis:100%;}
+    .form-row input[type=number],.form-row input[type=date]{flex:1;width:auto;min-width:100px;}
+    .submit-btn{flex-basis:100%;}
+  }
+
+  /* transactions */
+  .tx-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+  .tx-row{display:flex;justify-content:space-between;align-items:center;background:var(--surface);padding:10px 14px;font-size:13px;}
+  .tx-left{display:flex;flex-direction:column;gap:2px;flex:1;cursor:pointer;}
+  .tx-cat{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em;}
+  .tx-right{display:flex;align-items:center;gap:4px;}
+  .tx-amt{font-family:var(--mono);}
+  .tx-del,.tx-edit{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:15px;padding:10px;min-width:40px;min-height:40px;}
+  .tx-del:hover{color:var(--over);}
+  .tx-edit:hover{color:var(--text);}
+  .tx-edit-form{background:var(--surface-2);padding:12px 14px;display:flex;flex-direction:column;gap:8px;}
+  .tx-edit-form .form-row select,.tx-edit-form .form-row input{font-size:16px;}
+  .tx-edit-actions{display:flex;gap:8px;justify-content:flex-end;}
+  .tx-edit-actions button{border-radius:6px;padding:8px 14px;font-size:13px;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text);}
+  .tx-edit-actions .save-btn{background:var(--ok);border:none;color:#0f1712;font-weight:600;}
+
+  /* settings */
+  .settings-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:none;}
+  .settings-panel.open{display:block;}
+  .settings-block{margin-bottom:16px;}
+  .settings-block:last-child{margin-bottom:0;}
+  .settings-block h3{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-dim);margin:0 0 8px;}
+  .settings-item{display:flex;gap:6px;align-items:center;margin-bottom:6px;}
+  .settings-item input{background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:9px 8px;font-size:16px;}
+  .settings-item .sname{flex:1;}
+  .settings-item .slimit{width:100px;font-family:var(--mono);}
+  .settings-item button{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:15px;padding:8px;min-width:36px;min-height:36px;}
+  .settings-item button:hover{color:var(--over);}
+  .add-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
+  .add-row input{background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:9px 8px;font-size:16px;}
+  .add-row .aname{flex:1;min-width:120px;}
+  .add-row .alimit{width:100px;font-family:var(--mono);}
+  .add-row button{background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:9px 12px;cursor:pointer;font-size:13px;min-height:40px;}
+  .add-row button:hover{background:#2A2F38;}
+
+  .backup-row{display:flex;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+  .backup-row button{flex:1;background:var(--surface-2);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:10px;cursor:pointer;font-size:12px;min-height:40px;}
+  .backup-row button:hover{background:#2A2F38;}
+
+  .status{font-size:12px;color:var(--text-dim);text-align:center;margin-top:24px;min-height:16px;}
+  .status.ok{color:var(--ok);}
+  .status.err{color:var(--over);}
+  .loading{color:var(--text-dim);text-align:center;padding:60px 0;font-family:var(--mono);font-size:13px;}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="loading">Carregando...</div>
+</div>
+
+<script>
+const MONTH_NAMES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const CAT_COLORS = ['#4FA490','#5B8FD9','#D9A441','#B07FD9','#D9564F','#6FB8C9','#C98F4F','#8FBF6B'];
+
+let config = { categories: [], fixed: [] };
+let txByMonth = {}; // cache: {month: [tx]}
+let currentMonth = monthKey(new Date());
+let settingsOpen = false;
+
+function monthKey(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'); }
+function monthLabel(key){
+  const [y,m] = key.split('-').map(Number);
+  return MONTH_NAMES[m-1] + ' ' + y;
+}
+function fmtBRL(n){ return n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}); }
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function toCents(n){ return Math.round(Number(n||0)*100); }
+function fromCents(c){ return c/100; }
+function escapeHtml(str){
+  return String(str==null?'':str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+const STORE_PREFIX = 'gastos_app:';
+let storageAvailable = true;
+let editingTxId = null;
+
+function checkStorageAvailable(){
+  try{
+    const testKey = STORE_PREFIX+'__test__';
+    localStorage.setItem(testKey, '1');
+    localStorage.removeItem(testKey);
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+
+function showToast(msg, isError){
+  const el = document.getElementById('statusMsg');
+  if(!el) return;
+  el.textContent = msg;
+  el.className = 'status ' + (isError ? 'err' : 'ok');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=>{ el.textContent=''; el.className='status'; }, 2500);
+}
+
+async function loadConfig(){
+  try{
+    const raw = localStorage.getItem(STORE_PREFIX+'config');
+    if(raw) config = JSON.parse(raw);
+  }catch(e){ /* no config yet, ou localStorage indisponível */ }
+}
+async function saveConfig(){
+  if(!storageAvailable){ showToast('Não foi possível salvar — armazenamento indisponível', true); return; }
+  try{
+    localStorage.setItem(STORE_PREFIX+'config', JSON.stringify(config));
+  }catch(e){
+    showToast('Falha ao salvar configuração', true);
+  }
+}
+async function loadTx(month){
+  if(txByMonth[month]) return txByMonth[month];
+  try{
+    const raw = localStorage.getItem(STORE_PREFIX+'tx:'+month);
+    txByMonth[month] = raw ? JSON.parse(raw) : [];
+  }catch(e){
+    txByMonth[month] = [];
+  }
+  return txByMonth[month];
+}
+async function saveTx(month){
+  if(!storageAvailable){ showToast('Não foi possível salvar — armazenamento indisponível', true); return; }
+  try{
+    localStorage.setItem(STORE_PREFIX+'tx:'+month, JSON.stringify(txByMonth[month]));
+  }catch(e){
+    showToast('Falha ao salvar lançamentos', true);
+  }
+}
+
+function getAllTxMonthsFromStorage(){
+  const months = [];
+  for(let i=0;i<localStorage.length;i++){
+    const k = localStorage.key(i);
+    if(k && k.startsWith(STORE_PREFIX+'tx:')) months.push(k.slice((STORE_PREFIX+'tx:').length));
+  }
+  return months;
+}
+
+async function exportData(){
+  const months = getAllTxMonthsFromStorage();
+  const allTx = {};
+  for(const m of months){
+    allTx[m] = await loadTx(m);
+  }
+  const payload = { exportedAt: new Date().toISOString(), config, transactions: allTx };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'gastos-backup-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 5000);
+  showToast('Exportação iniciada — verifique a tela de compartilhamento', false);
+}
+
+function importData(file){
+  const reader = new FileReader();
+  reader.onload = async (e)=>{
+    try{
+      const data = JSON.parse(e.target.result);
+      if(!data.config || !Array.isArray(data.config.categories) || !Array.isArray(data.config.fixed)){
+        showToast('Arquivo inválido: estrutura de configuração não reconhecida', true);
+        return;
+      }
+      if(!confirm('Importar vai substituir os dados atuais salvos neste iPhone. Continuar?')) return;
+      config = data.config;
+      await saveConfig();
+      txByMonth = {};
+      const transactions = data.transactions || {};
+      for(const month of Object.keys(transactions)){
+        txByMonth[month] = transactions[month];
+        await saveTx(month);
+      }
+      showToast('Dados importados com sucesso', false);
+      render();
+    }catch(err){
+      showToast('Falha ao ler o arquivo: JSON inválido', true);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function catColor(idx){ return CAT_COLORS[idx % CAT_COLORS.length]; }
+
+function statusColor(spent, limit){
+  if(limit <= 0) return 'var(--text-dim)';
+  const pct = spent/limit;
+  if(pct >= 1) return 'var(--over)';
+  if(pct >= 0.8) return 'var(--warn)';
+  return 'var(--ok)';
+}
+
+async function changeMonth(delta){
+  const [y,m] = currentMonth.split('-').map(Number);
+  const d = new Date(y, m-1+delta, 1);
+  currentMonth = monthKey(d);
+  await render();
+}
+
+async function render(){
+  const tx = await loadTx(currentMonth);
+  const fixedTotalC = config.fixed.reduce((s,f)=>s+toCents(f.amount),0);
+  const catLimitTotalC = config.categories.reduce((s,c)=>s+toCents(c.limit),0);
+  const totalBudgetC = fixedTotalC + catLimitTotalC;
+  const catSpentC = {};
+  config.categories.forEach(c=>catSpentC[c.id]=0);
+  let allTxTotalC = 0;
+  tx.forEach(t=>{
+    const c = toCents(t.amount);
+    allTxTotalC += c;
+    if(catSpentC[t.categoryId]!==undefined) catSpentC[t.categoryId]+=c;
+  });
+  const catSpentTotalC = Object.values(catSpentC).reduce((a,b)=>a+b,0);
+  const orphanedTotalC = allTxTotalC - catSpentTotalC;
+  const totalSpentC = fixedTotalC + allTxTotalC;
+  const remainingC = totalBudgetC - totalSpentC;
+  const fixedTotal = fromCents(fixedTotalC), totalBudget = fromCents(totalBudgetC),
+        totalSpent = fromCents(totalSpentC), remaining = fromCents(remainingC),
+        orphanedTotal = fromCents(orphanedTotalC);
+
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    ${!storageAvailable ? `<div class="banner">⚠ Este navegador não está permitindo salvar dados (modo privado do Safari?). Nada será lembrado ao fechar o app.</div>` : ''}
+    <div class="header">
+      <h1>Controle de gastos</h1>
+      <div class="month-nav">
+        <button id="prevM">‹</button>
+        <span class="month-label">${monthLabel(currentMonth)}</span>
+        <button id="nextM">›</button>
+      </div>
+    </div>
+
+    <div class="gauge-wrap">
+      <div class="gauge">
+        ${totalBudgetC>0 ? `<div class="gauge-seg gauge-fixed" style="width:${(fixedTotalC/totalBudgetC*100).toFixed(2)}%"></div>` : ''}
+        ${config.categories.map((c,i)=>{
+          const w = totalBudgetC>0 ? (toCents(c.limit)/totalBudgetC*100) : 0;
+          return `<div class="gauge-seg" style="width:${w.toFixed(2)}%;background:${catColor(i)}"></div>`;
+        }).join('')}
+      </div>
+      <div class="totals">
+        <div class="item"><span class="label">Orçado</span><span class="value">${fmtBRL(totalBudget)}</span></div>
+        <div class="item"><span class="label">Gasto</span><span class="value">${fmtBRL(totalSpent)}</span></div>
+        <div class="item"><span class="label">Resta</span><span class="value remaining ${remaining<0?'neg':'pos'}">${fmtBRL(remaining)}</span></div>
+      </div>
+      ${orphanedTotal>0 ? `<div class="field-error show" style="text-align:right;margin-top:6px;color:var(--text-dim);">inclui ${fmtBRL(orphanedTotal)} de categoria(s) excluída(s)</div>` : ''}
+    </div>
+
+    <section>
+      <div class="section-title">
+        <h2>Categorias</h2>
+        <button class="link-btn" id="toggleSettings">${settingsOpen?'fechar ajustes':'gerenciar'}</button>
+      </div>
+      <div class="settings-panel ${settingsOpen?'open':''}" id="settingsPanel">
+        <div class="settings-block">
+          <h3>Categorias e limites mensais</h3>
+          <div id="catSettingsList"></div>
+          <div class="add-row">
+            <input class="aname" id="newCatName" type="text" placeholder="Nova categoria">
+            <input class="alimit" id="newCatLimit" type="number" placeholder="Limite">
+            <button id="addCatBtn">Adicionar</button>
+          </div>
+        </div>
+        <div class="settings-block">
+          <h3>Gastos fixos mensais</h3>
+          <div id="fixedSettingsList"></div>
+          <div class="add-row">
+            <input class="aname" id="newFixedName" type="text" placeholder="Nome (ex: aluguel)">
+            <input class="alimit" id="newFixedAmt" type="number" placeholder="Valor">
+            <button id="addFixedBtn">Adicionar</button>
+          </div>
+        </div>
+        <div class="backup-row">
+          <button id="exportBtn">Exportar backup</button>
+          <button id="importBtn">Importar backup</button>
+          <input type="file" id="importFile" accept="application/json" style="display:none;">
+        </div>
+      </div>
+      ${config.categories.length===0 ? `<div class="empty">Nenhuma categoria ainda. Clique em "gerenciar" para criar a primeira.</div>` : `
+      <div class="cat-grid">
+        ${config.categories.map((c,i)=>{
+          const spentC = catSpentC[c.id]||0;
+          const limitC = toCents(c.limit);
+          const spent = fromCents(spentC), limit = fromCents(limitC);
+          const pct = limitC>0 ? Math.min(spentC/limitC*100,100) : 0;
+          const remC = limitC - spentC;
+          return `
+          <div class="cat-card">
+            <div class="cat-top">
+              <span class="cat-name">${escapeHtml(c.name)}</span>
+              <span class="cat-nums">${fmtBRL(spent)} / ${fmtBRL(limit)}</span>
+            </div>
+            <div class="cat-bar"><div class="cat-bar-fill" style="width:${pct}%;background:${statusColor(spent,limit)}"></div></div>
+            <div class="cat-remain">${remC>=0? 'restam '+fmtBRL(fromCents(remC)) : 'estourou '+fmtBRL(Math.abs(fromCents(remC)))}</div>
+          </div>`;
+        }).join('')}
+      </div>`}
+    </section>
+
+    ${config.fixed.length>0 ? `
+    <section>
+      <div class="section-title"><h2>Gastos fixos</h2></div>
+      <div class="fixed-list">
+        ${config.fixed.map(f=>`<div class="fixed-row"><span>${escapeHtml(f.name)}</span><span class="amt">${fmtBRL(Number(f.amount||0))}</span></div>`).join('')}
+      </div>
+    </section>` : ''}
+
+    <section>
+      <div class="section-title"><h2>Registrar gasto</h2></div>
+      <div class="form-card">
+        <div class="form-row">
+          <select id="txCategory" ${config.categories.length===0?'disabled':''}>
+            ${config.categories.length===0 ? '<option>Crie uma categoria primeiro</option>' : config.categories.map(c=>`<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('')}
+          </select>
+          <input type="number" id="txAmount" placeholder="Valor" step="0.01" inputmode="decimal" ${config.categories.length===0?'disabled':''}>
+          <input type="text" id="txDesc" placeholder="Descrição (opcional)" ${config.categories.length===0?'disabled':''}>
+          <input type="date" id="txDate" value="${new Date().toISOString().slice(0,10)}" ${config.categories.length===0?'disabled':''}>
+          <button class="submit-btn" id="addTxBtn" ${config.categories.length===0?'disabled':''}>Registrar</button>
+        </div>
+        <div class="field-error" id="txFormError"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title"><h2>Lançamentos do mês</h2></div>
+      ${tx.length===0 ? `<div class="empty">Nenhum gasto registrado neste mês.</div>` : `
+      <div class="tx-list">
+        ${tx.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(t=>{
+          const cat = config.categories.find(c=>c.id===t.categoryId);
+          if(editingTxId === t.id){
+            return `
+            <div class="tx-edit-form">
+              <div class="form-row">
+                <select id="editCategory-${t.id}">
+                  ${config.categories.map(c=>`<option value="${c.id}" ${c.id===t.categoryId?'selected':''}>${escapeHtml(c.name)}</option>`).join('')}
+                </select>
+                <input type="number" id="editAmount-${t.id}" value="${t.amount}" step="0.01" inputmode="decimal">
+              </div>
+              <div class="form-row">
+                <input type="text" id="editDesc-${t.id}" value="${escapeHtml(t.description||'')}" placeholder="Descrição">
+                <input type="date" id="editDate-${t.id}" value="${t.date}">
+              </div>
+              <div class="tx-edit-actions">
+                <button data-cancel-edit>Cancelar</button>
+                <button class="save-btn" data-save-edit="${t.id}">Salvar</button>
+              </div>
+            </div>`;
+          }
+          return `
+          <div class="tx-row">
+            <div class="tx-left" data-edit-open="${t.id}">
+              <span>${escapeHtml(t.description) || (cat?escapeHtml(cat.name):'—')}</span>
+              <span class="tx-cat">${cat?escapeHtml(cat.name):'categoria removida'} · ${new Date(t.date+'T00:00:00').toLocaleDateString('pt-BR')}</span>
+            </div>
+            <div class="tx-right">
+              <span class="tx-amt">${fmtBRL(Number(t.amount))}</span>
+              <button class="tx-del" data-id="${t.id}">✕</button>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>`}
+    </section>
+
+    <div class="status" id="statusMsg"></div>
+  `;
+
+  document.getElementById('prevM').onclick = ()=>changeMonth(-1);
+  document.getElementById('nextM').onclick = ()=>changeMonth(1);
+  document.getElementById('toggleSettings').onclick = ()=>{ settingsOpen=!settingsOpen; render(); };
+
+  if(settingsOpen){
+    renderSettingsLists();
+    document.getElementById('addCatBtn').onclick = addCategory;
+    document.getElementById('addFixedBtn').onclick = addFixed;
+    document.getElementById('exportBtn').onclick = exportData;
+    document.getElementById('importBtn').onclick = ()=>document.getElementById('importFile').click();
+    document.getElementById('importFile').onchange = (e)=>{
+      if(e.target.files[0]) importData(e.target.files[0]);
+    };
+  }
+
+  const addBtn = document.getElementById('addTxBtn');
+  if(addBtn && config.categories.length>0){
+    addBtn.onclick = addTransaction;
+  }
+  document.querySelectorAll('.tx-del').forEach(btn=>{
+    btn.onclick = ()=>deleteTransaction(btn.dataset.id);
+  });
+  document.querySelectorAll('[data-edit-open]').forEach(el=>{
+    el.onclick = ()=>{ editingTxId = el.dataset.editOpen; render(); };
+  });
+  document.querySelectorAll('[data-cancel-edit]').forEach(btn=>{
+    btn.onclick = ()=>{ editingTxId = null; render(); };
+  });
+  document.querySelectorAll('[data-save-edit]').forEach(btn=>{
+    btn.onclick = ()=>saveEditedTransaction(btn.dataset.saveEdit);
+  });
+}
+
+function renderSettingsLists(){
+  const catList = document.getElementById('catSettingsList');
+  catList.innerHTML = config.categories.map(c=>`
+    <div class="settings-item">
+      <input class="sname" data-id="${c.id}" data-field="name" value="${escapeHtml(c.name)}">
+      <input class="slimit" type="number" data-id="${c.id}" data-field="limit" value="${c.limit}">
+      <button data-del="${c.id}">✕</button>
+    </div>`).join('');
+  catList.querySelectorAll('input').forEach(inp=>{
+    inp.onchange = async ()=>{
+      const c = config.categories.find(x=>x.id===inp.dataset.id);
+      if(inp.dataset.field==='name') c.name = inp.value;
+      else c.limit = Number(inp.value)||0;
+      await saveConfig();
+      render();
+    };
+  });
+  catList.querySelectorAll('button[data-del]').forEach(btn=>{
+    btn.onclick = async ()=>{
+      const cat = config.categories.find(c=>c.id===btn.dataset.del);
+      const msg = `Excluir "${cat.name}"? Gastos já lançados nessa categoria continuam contando no total, mas deixam de aparecer agrupados por categoria.`;
+      if(!confirm(msg)) return;
+      config.categories = config.categories.filter(c=>c.id!==btn.dataset.del);
+      await saveConfig();
+      showToast('Categoria excluída', false);
+      render();
+    };
+  });
+
+  const fixedList = document.getElementById('fixedSettingsList');
+  fixedList.innerHTML = config.fixed.map(f=>`
+    <div class="settings-item">
+      <input class="sname" data-id="${f.id}" data-field="name" value="${escapeHtml(f.name)}">
+      <input class="slimit" type="number" data-id="${f.id}" data-field="amount" value="${f.amount}">
+      <button data-del="${f.id}">✕</button>
+    </div>`).join('');
+  fixedList.querySelectorAll('input').forEach(inp=>{
+    inp.onchange = async ()=>{
+      const f = config.fixed.find(x=>x.id===inp.dataset.id);
+      if(inp.dataset.field==='name') f.name = inp.value;
+      else f.amount = Number(inp.value)||0;
+      await saveConfig();
+      render();
+    };
+  });
+  fixedList.querySelectorAll('button[data-del]').forEach(btn=>{
+    btn.onclick = async ()=>{
+      const f = config.fixed.find(x=>x.id===btn.dataset.del);
+      if(!confirm(`Excluir o gasto fixo "${f.name}"?`)) return;
+      config.fixed = config.fixed.filter(f=>f.id!==btn.dataset.del);
+      await saveConfig();
+      showToast('Gasto fixo excluído', false);
+      render();
+    };
+  });
+}
+
+async function addCategory(){
+  const nameEl = document.getElementById('newCatName');
+  const limitEl = document.getElementById('newCatLimit');
+  const name = nameEl.value.trim();
+  const limit = Number(limitEl.value)||0;
+  if(!name) return;
+  config.categories.push({id:uid(), name, limit});
+  await saveConfig();
+  render();
+}
+
+async function addFixed(){
+  const nameEl = document.getElementById('newFixedName');
+  const amtEl = document.getElementById('newFixedAmt');
+  const name = nameEl.value.trim();
+  const amount = Number(amtEl.value)||0;
+  if(!name) return;
+  config.fixed.push({id:uid(), name, amount});
+  await saveConfig();
+  render();
+}
+
+async function addTransaction(){
+  const categoryId = document.getElementById('txCategory').value;
+  const amountRaw = document.getElementById('txAmount').value;
+  const amount = Number(amountRaw);
+  const description = document.getElementById('txDesc').value.trim();
+  const date = document.getElementById('txDate').value || new Date().toISOString().slice(0,10);
+  const errEl = document.getElementById('txFormError');
+  if(!amountRaw || isNaN(amount) || amount<=0){
+    errEl.textContent = 'Informe um valor maior que zero.';
+    errEl.classList.add('show');
+    return;
+  }
+  errEl.classList.remove('show');
+  const tx = await loadTx(currentMonth);
+  tx.push({id:uid(), categoryId, amount, description, date});
+  await saveTx(currentMonth);
+  showToast('Gasto registrado', false);
+  render();
+}
+
+async function deleteTransaction(id){
+  if(!confirm('Excluir este lançamento?')) return;
+  const tx = await loadTx(currentMonth);
+  txByMonth[currentMonth] = tx.filter(t=>t.id!==id);
+  await saveTx(currentMonth);
+  showToast('Lançamento excluído', false);
+  render();
+}
+
+async function saveEditedTransaction(id){
+  const categoryId = document.getElementById('editCategory-'+id).value;
+  const amount = Number(document.getElementById('editAmount-'+id).value);
+  const description = document.getElementById('editDesc-'+id).value.trim();
+  const date = document.getElementById('editDate-'+id).value;
+  if(!amount || amount<=0){
+    showToast('Valor inválido — edição não salva', true);
+    return;
+  }
+  const tx = await loadTx(currentMonth);
+  const t = tx.find(x=>x.id===id);
+  if(t){
+    t.categoryId = categoryId;
+    t.amount = amount;
+    t.description = description;
+    t.date = date;
+  }
+  await saveTx(currentMonth);
+  editingTxId = null;
+  showToast('Lançamento atualizado', false);
+  render();
+}
+
+(async function init(){
+  storageAvailable = checkStorageAvailable();
+  await loadConfig();
+  await render();
+})();
+</script>
+</body>
+</html>
