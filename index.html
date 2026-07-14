@@ -36,12 +36,12 @@
   .banner{background:#3a2a1a;border:1px solid var(--warn);color:var(--warn);font-size:12px;padding:10px 12px;border-radius:8px;margin-bottom:16px;line-height:1.4;}
 
   /* header */
-  .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;row-gap:10px;}
   .header h1{font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);font-weight:600;margin:0;}
-  .month-nav{display:flex;align-items:center;gap:12px;}
-  .month-nav button{background:none;border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;}
+  .month-nav{display:flex;align-items:center;gap:10px;}
+  .month-nav button{background:none;border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;flex-shrink:0;}
   .month-nav button:hover{background:var(--surface-2);}
-  .month-label{font-family:var(--mono);font-size:14px;min-width:130px;text-align:center;text-transform:capitalize;}
+  .month-label{font-family:var(--mono);font-size:12px;min-width:150px;text-align:center;white-space:nowrap;}
 
   /* gauge */
   .gauge-wrap{margin:20px 0 8px;}
@@ -152,18 +152,32 @@
 </div>
 
 <script>
-const MONTH_NAMES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const MONTH_ABBR = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 const CAT_COLORS = ['#4FA490','#5B8FD9','#D9A441','#B07FD9','#D9564F','#6FB8C9','#C98F4F','#8FBF6B'];
+const CYCLE_START_DAY = 10; // ciclo vai do dia 10 ao dia 9 do mês seguinte
 
 let config = { categories: [], fixed: [] };
-let txByMonth = {}; // cache: {month: [tx]}
-let currentMonth = monthKey(new Date());
+let txByMonth = {}; // cache: {cycle: [tx]}
+let currentMonth = cycleKey(new Date());
 let settingsOpen = false;
 
-function monthKey(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0'); }
-function monthLabel(key){
-  const [y,m] = key.split('-').map(Number);
-  return MONTH_NAMES[m-1] + ' ' + y;
+// Retorna a chave do ciclo (ano-mês) ao qual uma data pertence.
+// Datas de 1 a 9 pertencem ao ciclo que começou no dia 10 do mês anterior.
+function cycleKey(d){
+  let y = d.getFullYear(), m = d.getMonth(); // m é 0-indexado
+  if(d.getDate() < CYCLE_START_DAY){
+    m -= 1;
+    if(m < 0){ m = 11; y -= 1; }
+  }
+  return y + '-' + String(m+1).padStart(2,'0');
+}
+function cycleLabel(key){
+  const [y,m] = key.split('-').map(Number); // m é 1-indexado, mês em que o ciclo começa
+  let endM = m+1, endY = y;
+  if(endM > 12){ endM = 1; endY += 1; }
+  const start = CYCLE_START_DAY + ' ' + MONTH_ABBR[m-1];
+  const end = (CYCLE_START_DAY-1) + ' ' + MONTH_ABBR[endM-1] + ' ' + endY;
+  return start + ' – ' + end;
 }
 function fmtBRL(n){ return n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}); }
 function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
@@ -302,8 +316,10 @@ function statusColor(spent, limit){
 
 async function changeMonth(delta){
   const [y,m] = currentMonth.split('-').map(Number);
-  const d = new Date(y, m-1+delta, 1);
-  currentMonth = monthKey(d);
+  let newM = m + delta, newY = y;
+  while(newM > 12){ newM -= 12; newY += 1; }
+  while(newM < 1){ newM += 12; newY -= 1; }
+  currentMonth = newY + '-' + String(newM).padStart(2,'0');
   await render();
 }
 
@@ -335,7 +351,7 @@ async function render(){
       <h1>Controle de gastos</h1>
       <div class="month-nav">
         <button id="prevM">‹</button>
-        <span class="month-label">${monthLabel(currentMonth)}</span>
+        <span class="month-label">${cycleLabel(currentMonth)}</span>
         <button id="nextM">›</button>
       </div>
     </div>
