@@ -263,6 +263,7 @@ function statusColor(spent, limit){
 
 // ---------- armazenamento ----------
 const STORE_PREFIX = 'gastos_app:';
+const SNAPSHOT_PREFIX = STORE_PREFIX+'snapshot:';
 
 function checkStorageAvailable(){
   try{
@@ -286,9 +287,47 @@ async function loadConfig(){
     if(raw) config = JSON.parse(raw);
   }catch(e){ /* no config yet */ }
 }
+// Grava o retrato de fixos/limites do ciclo REAL atual. Só é sobrescrito enquanto
+// esse ciclo ainda é o "hoje" — assim que o dia 10 vira e um novo ciclo passa a
+// ser REAL_CURRENT_CYCLE, este registro para de ser tocado e fica congelado.
+function snapshotCurrentCycleConfig(){
+  if(!storageAvailable) return;
+  const fixedTotalC = config.fixed.reduce((s,f)=>s+toCents(f.amount),0);
+  const catLimits = {};
+  config.categories.forEach(c=>{ catLimits[c.id] = toCents(c.limit); });
+  try{ localStorage.setItem(SNAPSHOT_PREFIX+REAL_CURRENT_CYCLE, JSON.stringify({fixedTotalC, catLimits})); }
+  catch(e){ /* silencioso: não é crítico, o gráfico só recai no valor atual */ }
+}
+function getSnapshotForCycle(key){
+  try{
+    const raw = localStorage.getItem(SNAPSHOT_PREFIX+key);
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+// Total de gastos fixos que vale para um ciclo específico: ao vivo se for o ciclo
+// real atual, ou o valor congelado se for um ciclo passado (e existir registro).
+function getFixedTotalCForCycle(key){
+  if(key === REAL_CURRENT_CYCLE) return config.fixed.reduce((s,f)=>s+toCents(f.amount),0);
+  const snap = getSnapshotForCycle(key);
+  if(snap) return snap.fixedTotalC;
+  return config.fixed.reduce((s,f)=>s+toCents(f.amount),0); // ciclo antigo sem registro (anterior a este recurso)
+}
+function getCatLimitCForCycle(catId, key){
+  if(key === REAL_CURRENT_CYCLE){
+    const c = config.categories.find(x=>x.id===catId);
+    return c ? toCents(c.limit) : 0;
+  }
+  const snap = getSnapshotForCycle(key);
+  if(snap && snap.catLimits && snap.catLimits[catId]!==undefined) return snap.catLimits[catId];
+  const c = config.categories.find(x=>x.id===catId);
+  return c ? toCents(c.limit) : 0; // ciclo antigo sem registro
+}
 async function saveConfig(){
   if(!storageAvailable){ showToast('Não foi possível salvar — armazenamento indisponível', true); return; }
-  try{ localStorage.setItem(STORE_PREFIX+'config', JSON.stringify(config)); }
+  try{
+    localStorage.setItem(STORE_PREFIX+'config', JSON.stringify(config));
+    snapshotCurrentCycleConfig();
+  }
   catch(e){ showToast('Falha ao salvar configuração', true); }
 }
 async function loadTx(month){
@@ -356,8 +395,8 @@ function importData(file){
 // ---------- cálculo do ciclo atual ----------
 async function computeCurrentCycleTotals(){
   const tx = await loadTx(currentMonth);
-  const fixedTotalC = config.fixed.reduce((s,f)=>s+toCents(f.amount),0);
-  const catLimitTotalC = config.categories.reduce((s,c)=>s+toCents(c.limit),0);
+  const fixedTotalC = getFixedTotalCForCycle(currentMonth);
+  const catLimitTotalC = config.categories.reduce((s,c)=>s+getCatLimitCForCycle(c.id, currentMonth),0);
   const totalBudgetC = fixedTotalC + catLimitTotalC;
   const catSpentC = {};
   config.categories.forEach(c=>catSpentC[c.id]=0);
@@ -380,7 +419,7 @@ async function computeCycleSeries(numCycles, anchorKey){
   for(let i=numCycles-1;i>=0;i--){
     const key = shiftKey(anchorKey, -i);
     const tx = await loadTx(key);
-    const fixedC = config.fixed.reduce((s,f)=>s+toCents(f.amount),0);
+    const fixedC = getFixedTotalCForCycle(key);
     const catTotalsC = {};
     config.categories.forEach(c=>catTotalsC[c.id]=0);
     let orphanC = 0;
@@ -528,7 +567,7 @@ async function renderOverviewHtml(){
     '<div class="gauge-wrap"><div class="gauge">'+
     (d.totalBudgetC>0 ? '<div class="gauge-seg gauge-fixed" style="width:'+(d.fixedTotalC/d.totalBudgetC*100).toFixed(2)+'%"></div>' : '')+
     config.categories.map((c,i)=>{
-      const w = d.totalBudgetC>0 ? (toCents(c.limit)/d.totalBudgetC*100) : 0;
+      const w = d.totalBudgetC>0 ? (getCatLimitCForCycle(c.id, currentMonth)/d.totalBudgetC*100) : 0;
       return '<div class="gauge-seg" style="width:'+w.toFixed(2)+'%;background:'+catColorFor(c,i)+'"></div>';
     }).join('')+
     '</div><div class="totals">'+
@@ -548,13 +587,13 @@ async function renderOverviewHtml(){
   const series = await computeCycleSeries(6, REAL_CURRENT_CYCLE);
   const comparisonHtml = '<section><div class="section-title"><h2>Comparativo entre ciclos</h2></div>'+
     '<div class="chart-card">'+buildComparisonSVG(series, currentMonth)+
-    '<div style="font-size:11px;color:var(--text-dim);margin-top:8px;">Toque numa barra para ver os detalhes daquele ciclo. Últimos 6 ciclos fixos (não se movem ao navegar) — limites usados na comparação são os atuais, ciclos antigos não guardam o limite que valia na época.</div>'+
+    '<div style="font-size:11px;color:var(--text-dim);margin-top:8px;">Toque numa barra para ver os detalhes daquele ciclo. Últimos 6 ciclos fixos (não se movem ao navegar). Gastos fixos e limites de ciclos passados ficam congelados no valor de quando eram o ciclo atual — mudar hoje não reescreve o histórico.</div>'+
     '</div></section>';
 
   const catCardsHtml = config.categories.length===0 ? '<div class="empty">Nenhuma categoria ainda. Crie na aba Categorias.</div>' :
     '<div class="cat-grid">'+config.categories.map((c,i)=>{
       const spentC = d.catSpentC[c.id]||0;
-      const limitC = toCents(c.limit);
+      const limitC = getCatLimitCForCycle(c.id, currentMonth);
       const spent = fromCents(spentC), limit = fromCents(limitC);
       const pct = limitC>0 ? Math.min(spentC/limitC*100,100) : 0;
       const remC = limitC - spentC;
@@ -885,6 +924,7 @@ async function saveEditedTransaction(id){
 (async function init(){
   storageAvailable = checkStorageAvailable();
   await loadConfig();
+  snapshotCurrentCycleConfig();
   await render();
 })();
 </script>
